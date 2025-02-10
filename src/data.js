@@ -13,7 +13,7 @@ export const initialOffices = [
     name: "Branch Office",
     location: "San Francisco",
     occupants: [
-      { id: 3, name: "Alice Johnson", role: "Designer" },
+      { id: 3, name: "Mike Garret", role: "Designer" },
       { id: 4, name: "Bob Brown", role: "Developer" },
     ],
   },
