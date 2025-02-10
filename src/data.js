@@ -5,7 +5,7 @@ export const initialOffices = [
     location: "New York",
     occupants: [
       { id: 1, name: "Alice Johnson", role: "Manager" },
-      { id: 2, name: "Bob Smith", role: "Developer" },
+      { id: 2, name: "Bob Ross", role: "Developer" },
     ],
   },
   {
