@@ -1,79 +1,73 @@
-// src/pages/HomePage.js
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
-  Button,
-  TextField,
+  Card,
+  CardContent,
+  IconButton,
+  Fab,
+  Grid,
 } from "@mui/material";
+import { Edit, People, Add } from "@mui/icons-material";
 
-function HomePage({ offices, addOffice }) {
-  const [newOfficeName, setNewOfficeName] = useState("");
-  const [newOfficeLocation, setNewOfficeLocation] = useState("");
+const HomePage = ({ offices }) => {
   const navigate = useNavigate();
 
-  const handleAddOffice = () => {
-    const newOffice = {
-      id: offices.length + 1,
-      name: newOfficeName,
-      location: newOfficeLocation,
-      occupants: [],
-    };
-    addOffice(newOffice);
-    setNewOfficeName("");
-    setNewOfficeLocation("");
-  };
-
   return (
-    <Container>
+    <Container maxWidth="md" sx={{ position: "relative", pb: 8 }}>
       <Typography variant="h4" gutterBottom>
-        Offices
+        All Offices
       </Typography>
-      <List>
-        {offices.map((office) => (
-          <ListItem
-            key={office.id}
-            button
-            onClick={() => navigate(`/office/${office.id}`)}
-          >
-            <ListItemText
-              primary={office.name}
-              secondary={`Location: ${office.location}, Occupants: ${office.occupants.length}`}
-            />
-          </ListItem>
+
+      <Grid container spacing={3}>
+        {offices.map((office, index) => (
+          <Grid item xs={12} key={office.id}>
+            <Card
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                p: 2,
+                borderLeft: `8px solid ${
+                  ["#4285F4", "#FBBC05", "#EA4335", "#34A853"][index % 4]
+                }`, // Rotating colors
+                borderRadius: 3,
+                boxShadow: 3,
+              }}
+            >
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6" fontWeight="bold">
+                  {office.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ display: "flex", alignItems: "center", mt: 1 }}
+                >
+                  <People sx={{ fontSize: 20, mr: 1 }} />
+                  <strong>{office.occupants.length}</strong> Staff Members in
+                  Office
+                </Typography>
+              </CardContent>
+
+              <IconButton onClick={() => navigate(`/office/${office.id}`)}>
+                <Edit color="primary" />
+              </IconButton>
+            </Card>
+          </Grid>
         ))}
-      </List>
-      <Typography variant="h6" gutterBottom>
-        Add New Office
-      </Typography>
-      <TextField
-        label="Office Name"
-        value={newOfficeName}
-        onChange={(e) => setNewOfficeName(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
-      <TextField
-        label="Location"
-        value={newOfficeLocation}
-        onChange={(e) => setNewOfficeLocation(e.target.value)}
-        fullWidth
-        margin="normal"
-      />
-      <Button
-        variant="contained"
+      </Grid>
+
+      {/* Floating Add Office Button */}
+      <Fab
         color="primary"
-        onClick={handleAddOffice}
-        disabled={!newOfficeName || !newOfficeLocation}
+        sx={{ position: "fixed", bottom: 24, right: 24 }}
+        onClick={() => navigate("/add-office")}
       >
-        Add Office
-      </Button>
+        <Add />
+      </Fab>
     </Container>
   );
-}
+};
 
 export default HomePage;

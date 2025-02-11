@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from '../src/pages/HomePage';
-import OfficePage from '../src/pages/OfficePage';
-import { initialOffices } from '../src/data';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "../src/pages/HomePage";
+import OfficePage from "../src/pages/OfficePage";
+import AddOfficePage from "../src/pages/AddOfficePage";
+import { initialOffices } from "../src/data";
 
 function App() {
   const [offices, setOffices] = useState(initialOffices);
@@ -28,9 +29,11 @@ function App() {
         />
         <Route
           path="/office/:id"
-          element={
-            <OfficePage offices={offices} updateOffice={updateOffice} />
-          }
+          element={<OfficePage offices={offices} updateOffice={updateOffice} />}
+        />
+        <Route
+          path="/add-office"
+          element={<AddOfficePage addOffice={addOffice} />}
         />
       </Routes>
     </Router>
